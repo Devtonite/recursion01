@@ -1,4 +1,4 @@
-import { Int64, isReady, shutdown } from 'snarkyjs';
+import { Field, Int64, isReady, Poseidon, shutdown } from 'snarkyjs';
 import { SimpleProgram } from './recursion01.js';
 
 (async function main() {
@@ -10,15 +10,18 @@ import { SimpleProgram } from './recursion01.js';
   console.log('Compiled and verification key generated:');
   console.log(verificationKey.toString());
 
-  // 1st user Field input
-  const proof0 = await SimpleProgram.base(Int64.from(0));
-  console.log('Proof generated:');
-  console.log(proof0.toJSON());
+  // // 1st user Field input
+  // const proof0 = await SimpleProgram.base(Int64.from(0));
+  // console.log('Proof generated:');
+  // console.log(proof0.toJSON());
 
-  // 2nd user Field input
-  const proof1 = await SimpleProgram.step(Int64.from(2), proof0);
-  console.log('Proof generated:');
-  console.log(proof1.toJSON());
+  // // 2nd user Field input
+  // const proof1 = await SimpleProgram.step(Int64.from(2), proof0);
+  // console.log('Proof generated:');
+  // console.log(proof1.toJSON());
+
+  const answer = Poseidon.hash([Field('mysalt'), Int64.from(75).toField()]);
+  console.log(answer);
 
   await shutdown();
 })();
