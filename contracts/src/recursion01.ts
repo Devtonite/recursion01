@@ -1,23 +1,23 @@
-import { Experimental, Field, SelfProof } from 'snarkyjs';
+import { Experimental, Int64, SelfProof } from 'snarkyjs';
 
 export const SimpleProgram = Experimental.ZkProgram({
-  publicInput: Field,
+  publicInput: Int64,
 
   methods: {
     base: {
       privateInputs: [],
 
-      method(publicInput: Field) {
-        publicInput.assertEquals(Field(0));
+      method(publicInput: Int64) {
+        publicInput.assertEquals(Int64.from(0));
       },
     },
 
     step: {
       privateInputs: [SelfProof],
 
-      method(publicInput: Field, earlierProof: SelfProof<Field>) {
+      method(publicInput: Int64, earlierProof: SelfProof<Int64>) {
         earlierProof.verify();
-        earlierProof.publicInput.add(1).assertEquals(publicInput);
+        earlierProof.publicInput.add(2).assertEquals(publicInput);
       },
     },
   },

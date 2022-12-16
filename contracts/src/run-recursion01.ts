@@ -1,4 +1,4 @@
-import { Field, isReady, shutdown } from 'snarkyjs';
+import { Int64, isReady, shutdown } from 'snarkyjs';
 import { SimpleProgram } from './recursion01.js';
 
 (async function main() {
@@ -11,12 +11,12 @@ import { SimpleProgram } from './recursion01.js';
   console.log(verificationKey.toString());
 
   // 1st user Field input
-  const proof0 = await SimpleProgram.base(Field(0));
+  const proof0 = await SimpleProgram.base(Int64.from(0));
   console.log('Proof generated:');
   console.log(proof0.toJSON());
 
   // 2nd user Field input
-  const proof1 = await SimpleProgram.step(Field(1), proof0);
+  const proof1 = await SimpleProgram.step(Int64.from(2), proof0);
   console.log('Proof generated:');
   console.log(proof1.toJSON());
 
